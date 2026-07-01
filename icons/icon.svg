@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="ExpenseTracker Pro">
+  <defs>
+    <linearGradient id="g" x1="64" x2="448" y1="64" y2="448" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#31d3bd"/>
+      <stop offset=".52" stop-color="#ff7b73"/>
+      <stop offset="1" stop-color="#f5c451"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#0d1726"/>
+  <path fill="url(#g)" d="M126 146c0-24 20-44 44-44h172c24 0 44 20 44 44v220c0 24-20 44-44 44H170c-24 0-44-20-44-44V146Zm60 58h140v-34H186v34Zm0 78h52v-42h-52v42Zm74 0h66v-42h-66v42Zm-74 70h52v-42h-52v42Zm74 0h66v-42h-66v42Z"/>
+</svg>

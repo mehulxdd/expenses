@@ -1,0 +1,12 @@
+{
+  "name": "expensetracker-pro",
+  "version": "1.0.0",
+  "description": "Local-first expense tracker built with HTML, CSS, JavaScript, Chart.js, and LocalStorage.",
+  "type": "module",
+  "scripts": {
+    "start": "node dev-server.js",
+    "lint": "node --check js/app.js"
+  },
+  "keywords": ["expense", "budget", "pwa", "localstorage"],
+  "license": "MIT"
+}

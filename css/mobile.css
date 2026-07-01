@@ -1,0 +1,64 @@
+@media (max-width: 1180px) {
+  .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dashboard-layout,
+  .split-layout { grid-template-columns: 1fr; }
+  .action-panel { position: static; }
+}
+
+@media (max-width: 860px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    padding-bottom: 96px;
+  }
+
+  .side-nav {
+    position: static;
+    height: auto;
+    padding: 14px;
+  }
+
+  .brand span:last-child,
+  .nav-item b,
+  .mini-panel { display: none; }
+
+  .nav-list {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .nav-item {
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .top-bar,
+  .top-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .chart-grid,
+  .metric-grid,
+  .toolbar,
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-card.wide { grid-column: auto; }
+
+  .transaction-row {
+    grid-template-columns: 1fr;
+  }
+
+  .row-actions {
+    justify-content: stretch;
+  }
+
+  .row-actions button {
+    flex: 1;
+  }
+
+  .inline-form {
+    grid-template-columns: 1fr;
+  }
+}

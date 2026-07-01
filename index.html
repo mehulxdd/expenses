@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0d1726">
+    <meta name="description" content="ExpenseTracker Pro is a private local-first personal finance dashboard.">
+    <title>ExpenseTracker Pro</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="./css/forms.css">
+    <link rel="stylesheet" href="./css/animations.css">
+    <link rel="stylesheet" href="./css/mobile.css">
+    <link rel="stylesheet" href="./css/themes.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+    <script type="module" src="./js/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="background-orbit" aria-hidden="true"></div>
+    <div class="app-shell">
+      <aside class="side-nav" aria-label="Primary navigation">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">EP</span>
+          <span>ExpenseTracker Pro</span>
+        </div>
+        <nav class="nav-list">
+          <button class="nav-item active" data-view="dashboard" title="Dashboard"><span aria-hidden="true">D</span><b>Dashboard</b></button>
+          <button class="nav-item" data-view="transactions" title="Transactions"><span aria-hidden="true">T</span><b>Transactions</b></button>
+          <button class="nav-item" data-view="budgets" title="Budgets"><span aria-hidden="true">B</span><b>Budgets</b></button>
+          <button class="nav-item" data-view="reports" title="Reports"><span aria-hidden="true">R</span><b>Reports</b></button>
+          <button class="nav-item" data-view="settings" title="Settings"><span aria-hidden="true">S</span><b>Settings</b></button>
+        </nav>
+        <div class="mini-panel">
+          <span class="eyeless-label">Savings Goal</span>
+          <strong id="navSavings">0%</strong>
+          <div class="progress"><span id="navSavingsBar"></span></div>
+        </div>
+      </aside>
+
+      <main id="main" class="main-panel" tabindex="-1">
+        <header class="top-bar">
+          <div>
+            <h1>Dashboard</h1>
+            <p id="todayLabel">Local-first finance command center</p>
+          </div>
+          <div class="top-actions">
+            <label class="search-box">
+              <span class="sr-only">Search transactions</span>
+              <input id="globalSearch" type="search" placeholder="Search notes, category, wallet">
+            </label>
+            <button id="themeToggle" class="icon-button" type="button" title="Toggle theme">Theme</button>
+            <button id="installBtn" class="primary-button hidden" type="button">Install</button>
+          </div>
+        </header>
+
+        <section class="view view-active" data-view-panel="dashboard">
+          <div class="metric-grid" id="metricGrid"></div>
+          <div class="dashboard-layout">
+            <section class="chart-grid" aria-label="Charts">
+              <article class="glass-panel chart-card"><h2>Expense by Category</h2><canvas id="categoryChart"></canvas><div class="chart-fallback" id="categoryFallback"></div></article>
+              <article class="glass-panel chart-card"><h2>Income vs Expense</h2><canvas id="incomeExpenseChart"></canvas><div class="chart-fallback" id="incomeExpenseFallback"></div></article>
+              <article class="glass-panel chart-card wide"><h2>Monthly Spending Trend</h2><canvas id="trendChart"></canvas><div class="chart-fallback" id="trendFallback"></div></article>
+              <article class="glass-panel chart-card"><h2>Budget Usage</h2><canvas id="budgetChart"></canvas><div class="chart-fallback" id="budgetFallback"></div></article>
+            </section>
+            <aside class="glass-panel action-panel">
+              <h2>Add Transaction</h2>
+              <form id="transactionForm" autocomplete="off">
+                <input type="hidden" id="transactionId">
+                <div class="field-row">
+                  <label>Type<select id="typeInput" required></select></label>
+                  <label>Amount<input id="amountInput" type="number" min="0.01" step="0.01" required></label>
+                </div>
+                <div class="field-row">
+                  <label>Category<select id="categoryInput" required></select></label>
+                  <label>Wallet<select id="walletInput" required></select></label>
+                </div>
+                <div class="field-row">
+                  <label>Date<input id="dateInput" type="date" required></label>
+                  <label>Time<input id="timeInput" type="time" required></label>
+                </div>
+                <label>Notes<textarea id="notesInput" rows="3" placeholder="Add memo or bill detail"></textarea></label>
+                <label>Receipt Image<input id="receiptInput" type="file" accept="image/*"></label>
+                <div class="form-actions">
+                  <button class="primary-button" type="submit">Save Transaction</button>
+                  <button class="ghost-button" id="resetFormBtn" type="button">Clear</button>
+                </div>
+              </form>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view" data-view-panel="transactions">
+          <div class="toolbar glass-panel">
+            <label>Type<select id="filterType"></select></label>
+            <label>Category<select id="filterCategory"></select></label>
+            <label>Wallet<select id="filterWallet"></select></label>
+            <label>Sort<select id="sortSelect"></select></label>
+            <button class="ghost-button" id="clearFiltersBtn" type="button">Reset</button>
+          </div>
+          <div class="glass-panel table-panel">
+            <div class="panel-title"><h2>Transaction History</h2><span id="transactionCount"></span></div>
+            <div id="transactionList" class="transaction-list"></div>
+          </div>
+        </section>
+
+        <section class="view" data-view-panel="budgets">
+          <div class="split-layout">
+            <article class="glass-panel">
+              <h2>Budget Planner</h2>
+              <form id="budgetForm">
+                <label>Monthly Budget<input id="monthlyBudgetInput" type="number" min="0" step="1"></label>
+                <div id="categoryBudgetFields" class="budget-fields"></div>
+                <button class="primary-button" type="submit">Save Budgets</button>
+              </form>
+            </article>
+            <article class="glass-panel">
+              <h2>Budget Status</h2>
+              <div id="budgetStatus"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" data-view-panel="reports">
+          <div class="split-layout">
+            <article class="glass-panel">
+              <h2>Reports</h2>
+              <div id="reportSummary" class="report-grid"></div>
+            </article>
+            <article class="glass-panel">
+              <h2>Export</h2>
+              <div class="button-stack">
+                <button class="primary-button" id="exportCsvBtn" type="button">Export CSV</button>
+                <button class="primary-button" id="exportJsonBtn" type="button">Export JSON</button>
+                <button class="ghost-button" id="backupBtn" type="button">Export Backup</button>
+                <button class="ghost-button" id="restorePreviousBtn" type="button">Restore Previous Backup</button>
+                <label class="file-button">Import Backup<input id="importBackupInput" type="file" accept="application/json"></label>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" data-view-panel="settings">
+          <div class="split-layout">
+            <article class="glass-panel">
+              <h2>Settings</h2>
+              <form id="settingsForm">
+                <label>Currency<select id="currencyInput"></select></label>
+                <label>Date Format<select id="dateFormatInput"></select></label>
+                <label>Number Format<select id="numberFormatInput"></select></label>
+                <label class="check-row"><input id="notificationsInput" type="checkbox"> Enable local notifications</label>
+                <button class="primary-button" type="submit">Save Settings</button>
+              </form>
+            </article>
+            <article class="glass-panel">
+              <h2>Categories and Wallets</h2>
+              <form id="categoryForm" class="inline-form">
+                <select id="newCategoryType"></select>
+                <input id="newCategoryName" placeholder="New category">
+                <button class="ghost-button" type="submit">Add</button>
+              </form>
+              <form id="walletForm" class="inline-form">
+                <input id="newWalletName" placeholder="New wallet">
+                <button class="ghost-button" type="submit">Add</button>
+              </form>
+              <div id="taxonomyLists" class="taxonomy-lists"></div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+    <button id="fab" class="fab" type="button" title="Add Transaction">+</button>
+    <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+  </body>
+</html>

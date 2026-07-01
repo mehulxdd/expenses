@@ -1,0 +1,19 @@
+body.light-theme {
+  color-scheme: light;
+  --bg: #f4f7fb;
+  --bg-2: #dce8f3;
+  --surface: rgba(255, 255, 255, .68);
+  --surface-strong: rgba(255, 255, 255, .86);
+  --border: rgba(20, 32, 45, .14);
+  --text: #101827;
+  --muted: #5c6878;
+  --shadow: 0 20px 60px rgba(37, 54, 75, .16);
+}
+
+body.light-theme .primary-button {
+  color: #08161e;
+}
+
+body.light-theme .toast {
+  background: rgba(255, 255, 255, .9);
+}

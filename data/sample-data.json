@@ -1,0 +1,11 @@
+{
+  "transactions": [
+    { "amount": 4800, "type": "income", "category": "Salary", "date": "2026-06-01", "time": "09:00", "wallet": "Bank", "notes": "Monthly salary" },
+    { "amount": 620, "type": "expense", "category": "Food", "date": "2026-06-03", "time": "19:30", "wallet": "UPI", "notes": "Groceries and dinner" },
+    { "amount": 180, "type": "expense", "category": "Transport", "date": "2026-06-05", "time": "08:15", "wallet": "Cash", "notes": "Metro card" },
+    { "amount": 900, "type": "savings", "category": "Investment", "date": "2026-06-08", "time": "10:10", "wallet": "Bank", "notes": "Index fund transfer" },
+    { "amount": 260, "type": "expense", "category": "Entertainment", "date": "2026-06-14", "time": "21:00", "wallet": "Credit Card", "notes": "Movie night" },
+    { "amount": 750, "type": "income", "category": "Freelance", "date": "2026-06-18", "time": "13:20", "wallet": "UPI", "notes": "Design consultation" },
+    { "amount": 510, "type": "expense", "category": "Bills", "date": "2026-06-22", "time": "16:45", "wallet": "Bank", "notes": "Electricity and internet" }
+  ]
+}
